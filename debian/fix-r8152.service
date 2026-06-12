@@ -1,0 +1,12 @@
+[Unit]
+Description=Fix r8152 autoconnect retries on NetworkManager start
+After=NetworkManager.service
+PartOf=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/etc/NetworkManager/dispatcher.d/10-fix-r8152
+RemainAfterExit=yes
+
+[Install]
+WantedBy=NetworkManager.service

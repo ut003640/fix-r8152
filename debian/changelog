@@ -1,3 +1,12 @@
+fix-r8152 (1.0.1) unstable; urgency=medium
+
+  * Add systemd service alongside dispatcher for NM restart scenarios.
+    - fix-r8152.service runs on every NM start/restart via PartOf.
+    - postinst auto-enables and starts the service on install.
+    - Fix .install path to prevent directory nesting.
+
+ -- donghualin <donghualin@uniontech.com>  Thu, 12 Jun 2026 15:30:00 +0800
+
 fix-r8152 (1.0.0) unstable; urgency=medium
 
   * Initial release.
