@@ -1,18 +1,18 @@
 #!/bin/bash
 #
 # 监听 NetworkManager 的 StateChanged D-Bus 信号，
-# 当 NM 状态变为 NM_STATE_CONNECTED_LOCAL(40) 及以上时，
+# 当 NM 状态变为 NM_STATE_CONNECTED_LOCAL 及以上时，
 # 执行 10-fix-r8152 脚本修复 r8152 自动连接配置。
 #
 # NM 状态值:
 #   0  NM_STATE_UNKNOWN
-#   10 NM_STATE_ASLEEP
-#   20 NM_STATE_DISCONNECTED
-#   30 NM_STATE_DISCONNECTING
-#   40 NM_STATE_CONNECTING
-#   50 NM_STATE_CONNECTED_LOCAL      <-- NM 就绪，开始检测设备
-#   70 NM_STATE_CONNECTED_SITE
-#   100 NM_STATE_CONNECTED_GLOBAL
+#  10 NM_STATE_ASLEEP
+#  20 NM_STATE_DISCONNECTED
+#  30 NM_STATE_DISCONNECTING
+#  40 NM_STATE_CONNECTING
+#  50 NM_STATE_CONNECTED_LOCAL      <-- NM 就绪，开始检测设备
+#  60 NM_STATE_CONNECTED_SITE
+#  70 NM_STATE_CONNECTED_GLOBAL
 
 DISPATCHER_SCRIPT="/etc/NetworkManager/dispatcher.d/10-fix-r8152"
 STATE_NM_READY=50  # NM_STATE_CONNECTED_LOCAL 及以上
@@ -44,11 +44,19 @@ fi
 
 # ---------------------------------------------------------------------------
 # 监听 StateChanged 信号，等待 NM 变为 CONNECTED_LOCAL 及以上
+# dbus-monitor 比 busctl subscribe 兼容更广的系统版本
 # ---------------------------------------------------------------------------
-busctl subscribe --match "type='signal',sender='${NM_DEST}',interface='${NM_IFACE}',member='StateChanged'" 2>/dev/null | while read -r; do
+dbus-monitor --system "type='signal',sender='${NM_DEST}',interface='${NM_IFACE}',member='StateChanged'" 2>/dev/null | while read -r line; do
+    # dbus-monitor 输出包含 member=StateChanged 时表示信号到达
+    echo "$line" | grep -q "member=StateChanged" || continue
     new_state=$(busctl get-property "${NM_DEST}" "${NM_PATH}" "${NM_IFACE}" "State" 2>/dev/null | awk '{print $2}')
     if [[ -n "$new_state" ]] && [[ "$new_state" -ge "$STATE_NM_READY" ]]; then
         logger -t fix-r8152-watch "NM 状态变为 ${new_state}，执行修复脚本"
         run_fix
     fi
 done
+
+# dbus-monitor 退出意味着监听断开（NM 重启或 dbus 异常），
+# 以非零码退出以触发 systemd Restart=on-failure 重启本服务
+logger -t fix-r8152-watch "dbus-monitor 已退出，终止服务以触发 systemd 重启"
+exit 1
