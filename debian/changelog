@@ -1,0 +1,6 @@
+fix-r8152 (1.0.0) unstable; urgency=medium
+
+  * Initial release.
+    - Add NetworkManager dispatcher script for r8152 autoconnect fix.
+
+ -- donghualin <donghualin@uniontech.com>  Thu, 12 Jun 2026 15:00:00 +0800
