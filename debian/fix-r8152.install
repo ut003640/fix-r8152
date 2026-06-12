@@ -1,2 +1,2 @@
 10-fix-r8152 etc/NetworkManager/dispatcher.d/
-debian/fix-r8152.service etc/systemd/system/
+fix-r8152-watch usr/bin/
