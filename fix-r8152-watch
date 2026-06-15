@@ -14,7 +14,7 @@
 #  60 NM_STATE_CONNECTED_SITE
 #  70 NM_STATE_CONNECTED_GLOBAL
 
-DISPATCHER_SCRIPT="/etc/NetworkManager/dispatcher.d/10-fix-r8152"
+DISPATCHER_SCRIPT="/etc/network/shell/10-fix-r8152"
 STATE_NM_READY=50  # NM_STATE_CONNECTED_LOCAL 及以上
 
 NM_DEST="org.freedesktop.NetworkManager"

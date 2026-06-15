@@ -1,2 +1,2 @@
-10-fix-r8152 etc/NetworkManager/dispatcher.d/
+10-fix-r8152 etc/network/shell/
 fix-r8152-watch usr/bin/
