@@ -1,2 +1,2 @@
-10-fix-r8152 etc/network/shell/
-fix-r8152-watch usr/bin/
+10-fix-r8152 lib/network/shell/
+fix-r8152-watch lib/network/bin/
