@@ -1,3 +1,9 @@
+fix-r8152 (1.0.2) unstable; urgency=medium
+
+  * add disable all notify and disable connection animation
+
+ -- donghualin <donghualin@uniontech.com>  Mon, 20 Jul 2026 13:58:05 +0800
+
 fix-r8152 (1.0.1) unstable; urgency=medium
 
   * Add systemd service alongside dispatcher for NM restart scenarios.

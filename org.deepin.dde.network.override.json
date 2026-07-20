@@ -1,0 +1,16 @@
+{
+    "contents": {
+        "disableAllNotify": {
+            "permissions": "readwrite",
+            "serial": 1,
+            "value": true
+        },
+        "disableConnectingAnimation": {
+            "permissions": "readwrite",
+            "serial": 1,
+            "value": true
+        }
+    },
+    "magic": "dsg.config.override",
+    "version": "1.0"
+}
