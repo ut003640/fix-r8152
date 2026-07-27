@@ -43,9 +43,10 @@ PROPS_IFACE="org.freedesktop.DBus.Properties"
 DEVICE_TYPE_ETHERNET=1
 TARGET_DRIVER="r8152"
 # 手动模式支持传 retries 值；dispatcher 模式使用默认值
-RETRIES="${1:-1}"
+# 默认值 -1 表示恢复为 NetworkManager 默认值（无限重试）
+RETRIES="${1:-0}"
 # dispatcher 模式下 $1 是接口名不是 retries，需要重置
-[[ $# -ge 2 ]] && RETRIES=1
+[[ $# -ge 2 ]] && RETRIES=0
 
 logger -t fix-r8152 "开始查找 Driver=${TARGET_DRIVER} 的以太网设备 (retries=${RETRIES})..."
 
@@ -170,10 +171,10 @@ for CONN_ID in "${CONNECTION_IDS[@]}"; do
     nmcli connection modify "${CONN_ID}" connection.autoconnect-retries "${RETRIES}" 2>&1 | while read line; do
         logger -t fix-r8152 -p user.err "  [${CONN_ID}] ${line}"
     done
-    nmcli connection modify "${CONN_ID}" connection.autoconnect-reset-retries 0 2>&1 | while read line; do
+    nmcli connection modify "${CONN_ID}" connection.autoconnect-reset-retries -1 2>&1 | while read line; do
         logger -t fix-r8152 -p user.err "  [${CONN_ID}] ${line}"
     done
-    logger -t fix-r8152 "  [OK] ${CONN_ID} 设置完成 (retries=${RETRIES}, reset-retries=0)"
+    logger -t fix-r8152 "  [OK] ${CONN_ID} 设置完成 (retries=${RETRIES}, reset-retries=-1)"
 done
 
 logger -t fix-r8152 "全部完成，共修改 ${#CONNECTION_IDS[@]} 个连接"
