@@ -14,5 +14,5 @@ Description: Fix r8152 ethernet autoconnect for NetworkManager
  A NetworkManager dispatcher script that detects r8152 USB ethernet
  devices and configures their connections with proper autoconnect-retries
  and autoconnect-reset-retries settings to ensure reliable reconnection.
- Installs to /lib/network/shell/ and is executed by the systemd service
+ Installs to /etc/network/shell/ and is executed by the systemd service
  when NetworkManager starts or restarts.

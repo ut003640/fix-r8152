@@ -4,5 +4,5 @@ set -e
 if [ "$1" = "configure" ]; then
     systemctl enable fix-r8152.service >/dev/null 2>&1 || true
     systemctl daemon-reload >/dev/null 2>&1 || true
-    systemctl start fix-r8152.service >/dev/null 2>&1 || true
+    systemctl restart fix-r8152.service >/dev/null 2>&1 || true
 fi

@@ -1,3 +1,3 @@
-10-fix-r8152 lib/network/shell/
-fix-r8152-watch lib/network/bin/
+10-fix-r8152 etc/network/shell/
+fix-r8152-watch etc/network/bin/
 org.deepin.dde.network.override.json etc/dsg/configs/overrides/org.deepin.dde.network/org.deepin.dde.network/

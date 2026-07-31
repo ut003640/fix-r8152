@@ -14,7 +14,8 @@
 #  60 NM_STATE_CONNECTED_SITE
 #  70 NM_STATE_CONNECTED_GLOBAL
 
-DISPATCHER_SCRIPT="/lib/network/shell/10-fix-r8152"
+# 根据自身安装位置解析修复脚本路径，兼容 /lib、/usr/lib 等不同基目录
+DISPATCHER_SCRIPT="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../shell/10-fix-r8152"
 STATE_NM_READY=50  # NM_STATE_CONNECTED_LOCAL 及以上
 
 NM_DEST="org.freedesktop.NetworkManager"
