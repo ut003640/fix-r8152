@@ -9,6 +9,16 @@
             "permissions": "readwrite",
             "serial": 1,
             "value": true
+        },
+        "needCheckNetwork": {
+            "permissions": "readwrite",
+            "serial": 1,
+            "value": true
+        },
+        "reapplyFlags": {
+            "permissions": "readwrite",
+            "serial": 1,
+            "value": "2"
         }
     },
     "magic": "dsg.config.override",
