@@ -18,7 +18,7 @@
         "reapplyFlags": {
             "permissions": "readwrite",
             "serial": 1,
-            "value": "2"
+            "value": "0"
         }
     },
     "magic": "dsg.config.override",

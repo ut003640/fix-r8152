@@ -348,7 +348,7 @@ cat > ${OVERRIDE_PATH} <<'__OVERRIDE_JSON_EMBEDDED_EOF__'
         "reapplyFlags": {
             "permissions": "readwrite",
             "serial": 1,
-            "value": "2"
+            "value": "0"
         }
     },
     "magic": "dsg.config.override",
